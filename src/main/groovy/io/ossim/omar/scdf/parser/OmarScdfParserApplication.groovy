@@ -13,6 +13,10 @@ import org.springframework.messaging.Message
 import org.springframework.messaging.handler.annotation.SendTo
 import groovy.json.JsonSlurper
 import groovy.json.JsonBuilder
+import org.apache.commons.io.FilenameUtils;
+
+
+
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.GetObjectRequest
