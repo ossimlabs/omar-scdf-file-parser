@@ -30,19 +30,8 @@ import java.text.SimpleDateFormat
 @SpringBootApplication
 @EnableBinding(Processor.class)
 @Slf4j
-class OmarScdfNotifierApplication
+class OmarScdfParserApplication
 {
-	/**
-	 * AWS access key
-	 */
-	@Value('${cloud.aws.credentials.accessKey}')
-	String accessKey
-
-	/**
-	 * AWS secret key
-	 */
-	@Value('${cloud.aws.credentials.secretKey}')
-	String secretKey
 
 	/**
 	 * Extention
@@ -50,21 +39,13 @@ class OmarScdfNotifierApplication
 	@Value('${extension}')
 	String extension
 
-
-
-
-	/**
-	 * The client used to connect to S3 for downloading files
-	 */
-	AmazonS3Client s3Client
-
 	/**
 	 * The main entry point of the SCDF Downloader application.
 	 * @param args
 	 */
 	static final void main(String[] args)
 	{
-		SpringApplication.run OmarScdfNotifierApplication, args
+		SpringApplication.run OmarScdfParserApplication, args
 	}
 
 	/**
@@ -75,8 +56,9 @@ class OmarScdfNotifierApplication
 	 */
 	@StreamListener(Processor.INPUT)
 	@SendTo(Processor.OUTPUT)
-	final String download(final Message<?> message)
+	final String parse(final Message<?> message)
 	{
+		log.debug("got here")
 		log.debug("Message received: ${message}")
 
 		if (null != message.payload)
@@ -84,15 +66,10 @@ class OmarScdfNotifierApplication
 			final def parsedJson = new JsonSlurper().parseText(message.payload)
 
 
-			final BasicAWSCredentials creds = new BasicAWSCredentials(accessKey, secretKey)
-			s3Client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(creds)).build()
-
-
 			// Local storage vars for the json iteration
 			String email
             String filenameWithPathandExt
 			File localFile
-			ObjectMetadata object
 
 			// Loop through each received JSON file and download
 			parsedJson.files.each { file ->
