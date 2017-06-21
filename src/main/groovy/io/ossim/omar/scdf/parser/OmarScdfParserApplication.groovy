@@ -72,7 +72,7 @@ class OmarScdfParserApplication
 
 			// Local storage vars for the json iteration
 			String email
-            String filenameWithPathandExt
+            String filename
 			File localFile
 
 			// Loop through each received JSON file and download
