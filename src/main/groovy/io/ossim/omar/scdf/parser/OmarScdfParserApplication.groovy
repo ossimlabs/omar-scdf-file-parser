@@ -84,10 +84,10 @@ class OmarScdfParserApplication
 				log.debug("file: ${file}")
 				log.debug("filenameWithPathandExt : ${filenameWithPathandExt }")
 				String ext1 = FilenameUtils.getExtension(filenameWithPathandExt)
-				log.debug("filenameWithPathandExt : ${filenameWithPathandExt }")
+				log.debug("ext1 : ${ext1 }")
 
-
-				if(ext1 == extension) {
+				if ( ext1.equals( extension ) )
+				{
 
 					log.debug("got into if")
 					// open file, grab e-mail address, send
