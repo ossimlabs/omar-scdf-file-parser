@@ -80,10 +80,10 @@ class OmarScdfParserApplication
 			parsedJson.files.each { file ->
 
 				log.debug("got into loop")
-				filenameWithPathandExt = file
+				filename = file
 				log.debug("file: ${file}")
-				log.debug("filenameWithPathandExt : ${filenameWithPathandExt }")
-				String ext1 = FilenameUtils.getExtension(filenameWithPathandExt)
+				log.debug("filenameWithPathandExt : ${filename }")
+				String ext1 = FilenameUtils.getExtension(filename)
 				String ext2 = "." + ext1
 				log.debug("ext2 : ${ext2 }")
 
@@ -92,7 +92,7 @@ class OmarScdfParserApplication
 
 					log.debug("got into if")
 					// open file, grab e-mail address, send
-					localFile = new File(filenameWithDirectory)
+					localFile = new File(filename)
 					email = localFile.text
 					log.debug("email: ${email}")
 					log.debug("localFile.text: ${localFile.text}")
