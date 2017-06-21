@@ -76,17 +76,25 @@ class OmarScdfParserApplication
 			File localFile
 
 			// Loop through each received JSON file and download
+			log.debug("extension: ${extension}")
 			parsedJson.files.each { file ->
 
+				log.debug("got into loop")
 				filenameWithPathandExt = file
+				log.debug("file: ${file}")
+				log.debug("filenameWithPathandExt : ${filenameWithPathandExt }")
 				String ext1 = FilenameUtils.getExtension(filenameWithPathandExt)
+				log.debug("filenameWithPathandExt : ${filenameWithPathandExt }")
 
 
 				if(ext1 == extension) {
 
+					log.debug("got into if")
 					// open file, grab e-mail address, send
 					localFile = new File(filenameWithDirectory)
 					email = localFile.text
+					log.debug("email: ${email}")
+					log.debug("localFile.text: ${localFile.text}")
 
 				}
 			}
