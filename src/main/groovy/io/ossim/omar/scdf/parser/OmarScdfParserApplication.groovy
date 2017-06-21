@@ -84,9 +84,10 @@ class OmarScdfParserApplication
 				log.debug("file: ${file}")
 				log.debug("filenameWithPathandExt : ${filenameWithPathandExt }")
 				String ext1 = FilenameUtils.getExtension(filenameWithPathandExt)
-				log.debug("ext1 : ${ext1 }")
+				String ext2 = "." + ext1
+				log.debug("ext2 : ${ext2 }")
 
-				if ( ext1.equals( extension ) )
+				if ( ext2.equals( extension ) )
 				{
 
 					log.debug("got into if")
