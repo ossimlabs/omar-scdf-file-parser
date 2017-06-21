@@ -73,12 +73,9 @@ class OmarScdfParserApplication
 			File localFile
 
 			// Loop through each received JSON file and download
-			log.debug("extension: ${extension}")
 			parsedJson.files.each { file ->
 
-				log.debug("got into loop")
 				filename = file
-				log.debug("file: ${file}")
 				log.debug("filenameWithPathandExt : ${filename }")
 				String ext1 = FilenameUtils.getExtension(filename)
 				String ext2 = "." + ext1
@@ -87,17 +84,17 @@ class OmarScdfParserApplication
 				if ( ext2.equals( extension ) )
 				{
 
-					log.debug("got into if")
 					// open file, grab e-mail address, send
 					localFile = new File(filename)
 					email = localFile.text
-					log.debug("email: ${email}")
 					log.debug("localFile.text: ${localFile.text}")
 
 				}
 			}
 
 			// Create the output JSON
+			// *** IF THERE IS ONLY 1 FILE WITH GIVEN EXTENION,
+			// BELOW CODE CAN BE MOVED INSIDE IF STATEMENT IN LOOP ****
 			final JsonBuilder emailJson = new JsonBuilder()
 			emailJson to: email,
 					from: from,
