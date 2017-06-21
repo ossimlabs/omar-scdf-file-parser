@@ -15,19 +15,6 @@ import groovy.json.JsonSlurper
 import groovy.json.JsonBuilder
 import org.apache.commons.io.FilenameUtils;
 
-
-
-import com.amazonaws.services.s3.AmazonS3Client
-import com.amazonaws.services.s3.model.ObjectMetadata
-import com.amazonaws.services.s3.model.GetObjectRequest
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.auth.AWSStaticCredentialsProvider
-import com.amazonaws.services.s3.AmazonS3ClientBuilder
-
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.text.SimpleDateFormat
-
 /**
  * Created by  on 5/31/2017
  */
@@ -38,13 +25,25 @@ class OmarScdfParserApplication
 {
 
 	/**
-	 * Extention
+	 * body
+	 */
+	@Value('${from}')
+	String from
+
+	/**
+	 * Extentsion
+	 */
+	@Value('${body}')
+	String body
+
+	/**
+	 * Extension
 	 */
 	@Value('${extension}')
 	String extension
 
 	/**
-	 * The main entry point of the SCDF Downloader application.
+	 * The main entry point of the SCDF file parser application.
 	 * @param args
 	 */
 	static final void main(String[] args)
@@ -53,17 +52,15 @@ class OmarScdfParserApplication
 	}
 
 	/**
-	 * Receives a message from the SCDF aggregator, downloads the files in the message
-	 * and puts them in the filepath on the SCDF server
-	 * @param message The message object from the SCDF aggregrator (in JSON)
+	 * Receives a message from the SCDF downloader, opens the files, and gets the e-mail
+	 * address from them
+	 * @param message The message object from the SCDF downloader (in JSON)
 	 * @return a JSON message of the files downloaded
 	 */
 	@StreamListener(Processor.INPUT)
 	@SendTo(Processor.OUTPUT)
 	final String parse(final Message<?> message)
 	{
-		log.debug("got here")
-		log.debug("Message received: ${message}")
 
 		if (null != message.payload)
 		{
@@ -102,9 +99,12 @@ class OmarScdfParserApplication
 
 			// Create the output JSON
 			final JsonBuilder emailJson = new JsonBuilder()
-			emailJson(email: email)
+			emailJson to: email,
+					from: from,
+					message: body
 
-			log.debug("email: ${email}")
+
+			log.debug("emailJson.toString(): ${emailJson.toString()}")
 
 			return emailJson.toString()
 		}
