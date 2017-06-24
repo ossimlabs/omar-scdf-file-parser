@@ -42,7 +42,7 @@ node(""){
                sh """
                 pushd ${workspaceDir}/${appName}/
                 ./gradlew artifactoryPublish
-                ./gradlew copyJarToS3
+                ./gradlew jarFileToS3
                 popd
                 """
             }
