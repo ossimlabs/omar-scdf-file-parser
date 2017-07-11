@@ -1,3 +1,3 @@
-# omar-scdf-downloader
+# omar-scdf-file-parser
 
-Receives a message from the omar-scdf-aggregator and downloads the files from that message and puts it on the scdf server.  
+Receives a message from the omar-scdf-downloader and parses the given text file for an e-mail address.
