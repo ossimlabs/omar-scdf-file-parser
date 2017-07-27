@@ -71,6 +71,7 @@ class OmarScdfParserApplication
 			String email
             String filename
 			File localFile
+            String zipFileUrl = parsedJson.zipFileUrl
 
 			// Loop through each received JSON file and download
 			parsedJson.files.each { file ->
@@ -98,7 +99,8 @@ class OmarScdfParserApplication
 			final JsonBuilder emailJson = new JsonBuilder()
 			emailJson to: email,
 					from: from,
-					message: body
+					message: body,
+                     zipFileUrl: zipFileUrl
 
 
 			log.debug("emailJson.toString(): ${emailJson.toString()}")
