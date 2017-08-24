@@ -27,6 +27,7 @@ The Downloader then sends a message to the Extractor with the list of files succ
 ## JSON Output Example (to the omar-scdf-notifier-email)
 ```json
 {
-    to: "",
-    zipFileUrl      }}
+    "to": "asdf@asdf.com",
+    "zipFileUrl": "https://s3.amazonaws.com/o2-test-data/examplezip.zip"
+}
 ```
